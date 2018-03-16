@@ -1,0 +1,6 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "import/no-named-as-default": "off"
+  }
+}
