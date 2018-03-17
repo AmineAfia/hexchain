@@ -14,6 +14,7 @@ import "antd/dist/antd.css";
 
 import "./index.scss";
 import OrgaSeachFormContainer from "./containers/OrgaSearchFormContainer";
+import DataViewContainer from "./containers/DataViewContainer";
 
 class App extends React.Component {
 	constructor(props) {
@@ -100,6 +101,7 @@ class App extends React.Component {
 							component={OrgaSeachFormContainer}
 							exact
 						/>
+						<Route path="/orgadata" component={DataViewContainer} exact />
 					</Switch>
 				</div>
 			</BrowserRouter>
