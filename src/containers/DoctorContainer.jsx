@@ -14,18 +14,19 @@ export default class DoctorContainer extends React.Component {
 
   render() {
     return (
-      <AppConsumer>
-        {context => {
-          if (context && !this.state.name) {
-            context.doctors(1).then(doc => {
-              if (doc[1]) {
-                setTimeout(this.setState({ name: doc[1], healthInstance:context}), 1);
-              }
-            });
-          }
-          return <DoctorView name={this.state.name} />;
-        }}
-      </AppConsumer>
+      <DoctorView name={this.state.name} />
+      // <AppConsumer>
+      //   {context => {
+      //     if (context && !this.state.name) {
+      //       context.doctors(1).then(doc => {
+      //         if (doc[1]) {
+      //           setTimeout(this.setState({ name: doc[1], healthInstance:context}), 1);
+      //         }
+      //       });
+      //     }
+      //     return <DoctorView name={this.state.name} />;
+      //   }}
+      // </AppConsumer>
     );
   }
 }

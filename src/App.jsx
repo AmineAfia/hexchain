@@ -94,20 +94,52 @@ class App extends React.Component {
         <AppContext.Provider value={this.state.healthInstance}>
           <div className="top">
             <Switch>
-              <Route path="/" component={
-                ()=> <Home healthInstance = {this.state.healthInstance}>} exact />
-              <Route path="/login" component={
-                () => <LoginContainer healthInstance = {this.state.healthInstance} />} exact />
-              <Route path="/doctor" component={
-                () => <DoctorContainer healthInstance = {this.state.healthInstance} />} exact />
-              <Route path="/orga" component={
-                () => <OrgaView healthInstance = {this.state.healthInstance} />} exact />
-              <Route path="/orgasearch" component={
-                () => <OrgaSeachFormContainer healthInstance = {this.state.healthInstance} />}
+              <Route
+                path="/"
+                component={() => (
+                  <Home healthInstance={this.state.healthInstance} />
+                )}
                 exact
               />
-              <Route path="/orgadata" component={
-                () => <DataViewContainer healthInstance = {this.state.healthInstance}} exact />
+              <Route
+                path="/login"
+                component={() => (
+                  <LoginContainer healthInstance={this.state.healthInstance} />
+                )}
+                exact
+              />
+              <Route
+                path="/doctor"
+                component={() => (
+                  <DoctorContainer healthInstance={this.state.healthInstance} />
+                )}
+                exact
+              />
+              <Route
+                path="/orga"
+                component={() => (
+                  <OrgaView healthInstance={this.state.healthInstance} />
+                )}
+                exact
+              />
+              <Route
+                path="/orgasearch"
+                component={() => (
+                  <OrgaSeachFormContainer
+                    healthInstance={this.state.healthInstance}
+                  />
+                )}
+                exact
+              />
+              <Route
+                path="/orgadata"
+                component={() => (
+                  <DataViewContainer
+                    healthInstance={this.state.healthInstance}
+                  />
+                )}
+                exact
+              />
             </Switch>
           </div>
         </AppContext.Provider>

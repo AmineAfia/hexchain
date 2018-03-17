@@ -14,22 +14,14 @@ export default class DoctorSearchContainer extends React.Component {
   }
 
   onSearch(value) {
-    this.state.context.getPatientByName(value).then(patient => {
-      console.log(patient);
-    });
+    // this.state.context.getPatientByName(value).then(patient => {
+    //   console.log(patient);
+    // });
   }
 
   render() {
     return (
       <div className="search">
-        <AppConsumer>
-          {context => {
-            if (context) {
-              this.setState({ context: context });
-            }
-          }}
-        </AppConsumer>
-
         <DoctorSearch onSearch={this.onSearch} />
         <List
           className="search-list"
