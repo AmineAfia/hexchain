@@ -19,28 +19,28 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
-class RegistrationForm extends React.Component {
+class DoctorAddEntry extends React.Component {
   constructor() {
     super();
     this.state = {
       confirmDirty: false,
       autoCompleteResult: [],
-      name: "",
-      age: -1,
-      nationality: "",
-      city: "",
-      country: "",
+      name: "A",
+      age: 4,
+      nationality: "sdf",
+      city: "df",
+      country: "dsa",
       diseases: "",
       symptoms: [],
       agreement: false
     };
     this.inputOnChange = this.inputOnChange.bind(this);
     this.addSymptom = this.addSymptom.bind(this);
+    this.register = this.register.bind(this);
   }
 
   inputOnChange(event) {
     const { target } = event;
-    console.log(target.id, target.checked);
     const value = target.type === "checkbox" ? target.checked : target.value;
     const { id } = target;
 
@@ -59,6 +59,35 @@ class RegistrationForm extends React.Component {
       this.setState({
         symptoms: retval
       });
+    }
+  }
+
+  register() {
+    if (this.props.healthInstance) {
+      this.props.healthInstance
+        .addPatient(
+          this.state.name,
+          this.state.age,
+          this.state.nationality,
+          this.state.city,
+          this.state.country,
+          { from: "0xb87917379acfd027086e9d3ebf77e32b41f8a152" }
+        )
+        .then(data => {
+          console.log(data);
+        });
+      //TODO: More Symptoms
+      /*
+      this.props.healthInstance
+        .addDiseaseToPatient(
+          this.state.name,
+          this.state.diseases,
+          this.state.symptoms[0],
+          this.props.docname
+        )
+        .then(data => {
+          console.log(data);
+        });*/
     }
   }
 
@@ -218,7 +247,12 @@ class RegistrationForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            disabled={!this.state.agreement}
+            type="primary"
+            htmlType="submit"
+            onClick={this.register}
+          >
             Register
           </Button>
         </FormItem>
@@ -227,5 +261,5 @@ class RegistrationForm extends React.Component {
   }
 }
 
-const WrappedRegistrationForm = Form.create()(RegistrationForm);
+const WrappedRegistrationForm = Form.create()(DoctorAddEntry);
 export default WrappedRegistrationForm;

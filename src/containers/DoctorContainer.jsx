@@ -18,11 +18,17 @@ export default class DoctorContainer extends React.Component {
           if (context && !this.state.name) {
             context.doctors(1).then(doc => {
               this.setState({
-                name: doc[1]
+                name: doc[1],
+                healthInstance: context
               });
             });
           }
-          return <DoctorView name={this.state.name} />;
+          return (
+            <DoctorView
+              name={this.state.name}
+              healthInstance={this.state.healthInstance}
+            />
+          );
         }}
       </AppConsumer>
     );
