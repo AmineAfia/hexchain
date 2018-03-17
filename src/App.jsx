@@ -7,7 +7,7 @@ import TruffleContract from "truffle-contract";
 import LoginContainer from "./containers/LoginContainer";
 import DoctorContainer from "./containers/DoctorContainer";
 import OrgaView from "./components/content/OrgaView";
-import Home from "./components/Home";
+import ChooseContainer from "./containers/ChooseContainer";
 
 import Health from "../build/contracts/Health.json";
 import "antd/dist/antd.css";
@@ -93,7 +93,7 @@ class App extends React.Component {
         <AppContext.Provider value={this.state.healthInstance}>
           <div className="top">
             <Switch>
-              <Route path="/" component={Home} exact />
+              <Route path="/" component={ChooseContainer} exact />
               <Route path="/login" component={LoginContainer} exact />
               <Route path="/doctor" component={DoctorContainer} exact />
               <Route path="/orga" component={OrgaView} exact />
