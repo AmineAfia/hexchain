@@ -94,7 +94,7 @@ class App extends React.Component {
         <AppContext.Provider value={this.state.healthInstance}>
           <div className="top">
             <Switch>
-              <Route path="/" component={Home} exact />
+              <Route path="/" component={()=> <Home>} exact />
               <Route path="/login" component={LoginContainer} exact />
               <Route path="/doctor" component={DoctorContainer} exact />
               <Route path="/orga" component={OrgaView} exact />
