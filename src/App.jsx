@@ -16,15 +16,15 @@ import "./index.scss";
 import OrgaSeachFormContainer from "./containers/OrgaSearchFormContainer";
 import DataViewContainer from "./containers/DataViewContainer";
 
+const AppContext = React.createContext({ healthInstance: null });
+export const AppConsumer = AppContext.Consumer;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       account: "0x0",
-      candidates: [],
-      hasVoted: false,
-      loading: true,
-      voting: false,
+      healthInstance: null,
       patients: []
     };
     if (typeof web3 != "undefined") {
@@ -47,8 +47,11 @@ class App extends React.Component {
       this.setState({ account });
 
       // get an instance of the Health contract
+      console.log(this.health);
       this.health.deployed().then(healthInstance => {
+        console.log(this, this.healthInstance);
         this.healthInstance = healthInstance;
+        this.setState({ healthInstance });
         this.healthInstance.patientsCount().then(patientsCount => {
           for (var i = 1; i <= patientsCount; i++) {
             this.healthInstance.patients(i).then(patient => {
@@ -89,20 +92,22 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="top">
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/login" component={LoginContainer} exact />
-            <Route path="/doctor" component={DoctorContainer} exact />
-            <Route path="/orga" component={OrgaView} exact />
-            <Route
-              path="/orgasearch"
-              component={OrgaSeachFormContainer}
-              exact
-            />
-            <Route path="/orgadata" component={DataViewContainer} exact />
-          </Switch>
-        </div>
+        <AppContext.Provider value={this.state.healthInstance}>
+          <div className="top">
+            <Switch>
+              <Route path="/" component={Home} exact />
+              <Route path="/login" component={LoginContainer} exact />
+              <Route path="/doctor" component={DoctorContainer} exact />
+              <Route path="/orga" component={OrgaView} exact />
+              <Route
+                path="/orgasearch"
+                component={OrgaSeachFormContainer}
+                exact
+              />
+              <Route path="/orgadata" component={DataViewContainer} exact />
+            </Switch>
+          </div>
+        </AppContext.Provider>
       </BrowserRouter>
     );
   }

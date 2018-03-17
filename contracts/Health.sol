@@ -160,11 +160,11 @@ contract Health {
         return numberOfSelectedPatients;
     }
 
-
+/*
     function buyData() payable {
         this.address.transfer(10);
     }
-    
+   */ 
 }
 
 

@@ -21,6 +21,7 @@ export default class DoctorSearchContainer extends React.Component {
       <div className="search">
         <DoctorSearch onSearch={this.onSearch} />
         <List
+          className="search-list"
           size="large"
           bordered
           dataSource={this.state.results}
