@@ -196,6 +196,7 @@ class RegistrationForm extends React.Component {
             </FormItem>
             <List
               bordered
+              size="small"
               dataSource={this.state.symptoms}
               renderItem={item => (
                 <List.Item actions={[<a>delete</a>]}>{item}</List.Item>

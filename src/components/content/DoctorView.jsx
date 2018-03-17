@@ -1,7 +1,7 @@
 import React from "react";
 import { Collapse } from "antd";
 import DoctorAddEntry from "../../containers/DoctorAddEntry";
-import DoctorSearch from "./DoctorSearch";
+import DoctorSearchContainer from "../../containers/DoctorSearchContainer";
 import "./DoctorView.scss";
 
 const { Panel } = Collapse;
@@ -23,7 +23,7 @@ const DoctorView = () => {
               <DoctorAddEntry />
             </Panel>
           </Collapse>
-          <DoctorSearch />
+          <DoctorSearchContainer />
         </div>
       </div>
     </div>

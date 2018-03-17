@@ -86,28 +86,6 @@ class App extends React.Component {
       });
   }
 
-<<<<<<< HEAD
-	render() {
-		return (
-			<BrowserRouter>
-				<div className="top">
-					<Switch>
-						<Route path="/" component={Home} exact />
-						<Route path="/login" component={LoginContainer} exact />
-						<Route path="/doctor" component={DoctorContainer} exact />
-						<Route path="/orga" component={OrgaView} exact />
-						<Route
-							path="/orgasearch"
-							component={OrgaSeachFormContainer}
-							exact
-						/>
-						<Route path="/orgadata" component={DataViewContainer} exact />
-					</Switch>
-				</div>
-			</BrowserRouter>
-		);
-	}
-=======
   render() {
     return (
       <BrowserRouter>
@@ -128,7 +106,6 @@ class App extends React.Component {
       </BrowserRouter>
     );
   }
->>>>>>> e60d42ac46f3fb76b0ff5edd51979f4c4bf99374
 }
 
 ReactDOM.render(<App />, document.querySelector("#root"));
