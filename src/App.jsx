@@ -49,7 +49,6 @@ class App extends React.Component {
       // get an instance of the Health contract
       console.log(this.health);
       this.health.deployed().then(healthInstance => {
-        console.log(this, this.healthInstance);
         this.healthInstance = healthInstance;
         this.setState({ healthInstance });
         this.healthInstance.patientsCount().then(patientsCount => {
@@ -66,7 +65,6 @@ class App extends React.Component {
                 balance: patient[6]
               });
               this.setState({ patients: patients });
-              console.log(this.state.patients);
             });
           }
         });

@@ -6,7 +6,8 @@ export default class DoctorContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      search: ""
+      search: "",
+      name: ""
     };
   }
 
@@ -14,10 +15,14 @@ export default class DoctorContainer extends React.Component {
     return (
       <AppConsumer>
         {context => {
-          if (context) {
-            context.patients(1).then(data => console.log(data));
+          if (context && !this.state.name) {
+            context.doctors(1).then(doc => {
+              this.setState({
+                name: doc[1]
+              });
+            });
           }
-          return <DoctorView />;
+          return <DoctorView name={this.state.name} />;
         }}
       </AppConsumer>
     );

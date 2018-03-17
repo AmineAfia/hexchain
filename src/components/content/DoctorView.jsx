@@ -8,10 +8,12 @@ const { Panel } = Collapse;
 const WELCOME = "Welcome ";
 const ADD = "Add a Patient";
 
-const DoctorView = () => {
+const DoctorView = props => {
   return (
     <div className="doctor">
-      <div className="doctor-header">{WELCOME} Dr. Prop </div>
+      <div className="doctor-header">
+        {WELCOME} Dr. {props.name}{" "}
+      </div>
       <div className="doctor-content">
         <div className="doctor-wrapper">
           <Collapse
