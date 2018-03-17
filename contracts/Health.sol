@@ -20,7 +20,7 @@ contract EditRecord {
         uint date;
         uint price;
     }
-    
+
     struct Doctor {
         uint id;
         string name;
