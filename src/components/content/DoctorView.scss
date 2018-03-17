@@ -1,0 +1,33 @@
+.doctor {
+  margin: 10px 20px;
+  &-header {
+    margin: 10px 0;
+    padding: 25px;
+    font-size: 45px;
+    max-width: 800px;
+    background-color: #ffffffd6;
+  }
+  &-add {
+    background-color: white;
+    margin: 20px 50px;
+    padding: 20px 0px;
+    border-radius: 5px;
+  }
+  &-content {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.doctor::after {
+  content: "";
+  background-image: url("../../../img/background.jpg");
+  background-size: cover;
+  opacity: 0.6;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;
+}
