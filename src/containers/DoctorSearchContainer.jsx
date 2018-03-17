@@ -1,24 +1,35 @@
 import React from "react";
 import DoctorSearch from "../components/content/DoctorSearch";
 import { List } from "antd";
+import { AppConsumer } from "../App";
 
 export default class DoctorSearchContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      results: []
+      results: [],
+      context: {}
     };
     this.onSearch = this.onSearch.bind(this);
   }
 
   onSearch(value) {
-    if (value) {
-    }
+    this.state.context.getPatientByName(value).then(patient => {
+      console.log(patient);
+    });
   }
 
   render() {
     return (
       <div className="search">
+        <AppConsumer>
+          {context => {
+            if (context) {
+              this.setState({ context: context });
+            }
+          }}
+        </AppConsumer>
+
         <DoctorSearch onSearch={this.onSearch} />
         <List
           className="search-list"

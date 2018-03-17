@@ -41,7 +41,7 @@ contract Health {
     function Health() public {
         patientsCount = 0;
         doctorsCount = 0;
-        
+
         addPatient("Ben", 17, "Canada", "Toronto", "Canada");
         addPatient("Adam", 22, "France", "Paris", "Germany");
         addDoctor("Philip", "Hospital 1");

@@ -47,7 +47,7 @@ class App extends React.Component {
       this.setState({ account });
 
       // get an instance of the Health contract
-      console.log(this.health);
+      // console.log(this.health);
       this.health.deployed().then(healthInstance => {
         this.healthInstance = healthInstance;
         this.setState({ healthInstance });
@@ -65,6 +65,7 @@ class App extends React.Component {
                 balance: patient[6]
               });
               this.setState({ patients: patients });
+              console.log(this.state.patients);
             });
           }
         });
