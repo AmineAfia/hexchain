@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Web3 from "web3";
 import TruffleContract from "truffle-contract";
 
-import LoginView from "./components/content/LoginView";
+import LoginContainer from "./containers/LoginContainer";
 import DoctorView from "./components/content/DoctorView";
 import OrgaView from "./components/content/OrgaView";
 import Home from "./components/Home";
@@ -12,17 +12,6 @@ import Home from "./components/Home";
 import Health from "../build/contracts/Health.json";
 
 import "./index.scss";
-
-const routes = [
-  {
-    path: "/",
-    exact: true,
-    id: 0,
-    component: () => {
-      return <div>Hello World!</div>;
-    }
-  }
-];
 
 class App extends React.Component {
   constructor(props) {
@@ -101,7 +90,7 @@ class App extends React.Component {
         <div className="top">
           <Switch>
             <Route path="/" component={Home} exact />
-            <Route path="/login" component={LoginView} exact />
+            <Route path="/login" component={LoginContainer} exact />
             <Route path="/doctor" component={DoctorView} exact />
             <Route path="/orga" component={OrgaView} exact />
           </Switch>

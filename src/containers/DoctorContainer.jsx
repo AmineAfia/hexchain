@@ -1,4 +1,5 @@
 import React from "react";
+import DoctorView from "../components/content/DoctorView";
 
 export default class DoctorContainer extends React.Component {
   constructor() {
@@ -8,5 +9,7 @@ export default class DoctorContainer extends React.Component {
     };
   }
 
-  render() {}
+  render() {
+    <DoctorView />;
+  }
 }
