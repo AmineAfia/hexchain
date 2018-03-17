@@ -23,12 +23,7 @@ export default class DoctorContainer extends React.Component {
               }
             });
           }
-          return (
-            <DoctorView
-              name={this.state.name}
-              healthInstance={this.state.healthInstance}
-            />
-          );
+          return <DoctorView name={this.state.name} />;
         }}
       </AppConsumer>
     );

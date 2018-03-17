@@ -22,10 +22,7 @@ const DoctorView = props => {
             style={{ width: "800px" }}
           >
             <Panel header="Add a patient" key="1">
-              <DoctorAddEntry
-                healthInstance={props.healthInstance}
-                docname={props.name}
-              />
+              <DoctorAddEntry />
             </Panel>
           </Collapse>
           <DoctorSearchContainer />
