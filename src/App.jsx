@@ -93,7 +93,7 @@ class App extends React.Component {
 					<Switch>
 						<Route path="/" component={Home} exact />
 						<Route path="/login" component={LoginContainer} exact />
-						<Route path="/doctor" component={DoctorView} exact />
+						<Route path="/doctor" component={DoctorContainer} exact />
 						<Route path="/orga" component={OrgaView} exact />
 						<Route
 							path="/orgasearch"
