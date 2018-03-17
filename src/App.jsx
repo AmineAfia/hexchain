@@ -1,53 +1,35 @@
 // @flow
-import * as React from 'react';
-import ReactDOM from 'react-dom'
-import {
-  BrowserRouter,
-  Route,
-} from 'react-router-dom';
-import Web3 from 'web3'
-import TruffleContract from 'truffle-contract'
-import Election from '../build/contracts/Election.json'
+import * as React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import LoginView from "./components/content/LoginView";
+import DoctorView from "./components/content/DoctorView";
+import OrgaView from "./components/content/OrgaView";
+import Home from "./components/Home";
 
-import './index.scss';
+import "./index.scss";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     exact: true,
     id: 0,
-  component: ()=>{ return( <div>Hello World!</div>)},
+    component: () => {
+      return <div>Hello World!</div>;
+    }
   }
 ];
 
-class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-      <div className="top">
-        <div className="header">
-        </div>
-        <div className="content">
-          {
-                      routes.map(route => (
-                        <Route
-                          key={route.id}
-                          path={route.path}
-                          component={route.component}
-                        />
-                          ))
-                  }
-        </div>
-        <div className="footer">
-        </div>
-      </div>
-    </BrowserRouter>
-    )
-  }
-}
-  ReactDOM.render(
-    <App />,
-    document.querySelector('#root')
- )
+const App = () => (
+  <BrowserRouter>
+    <div className="top">
+      <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/login" component={LoginView} exact />
+        <Route path="/doctor" component={DoctorView} exact />
+        <Route path="/orga" component={OrgaView} exact />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;

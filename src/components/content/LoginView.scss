@@ -1,0 +1,26 @@
+.login {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &-button {
+    height: 20px;
+    border: 1px solid grey;
+    background-color: #fafafa;
+  }
+  &-container {
+    display: flex;
+    min-width: 76px;
+    font-size: 23px;
+    width: 189px;
+    flex-direction: column;
+  }
+}
+
+input {
+  padding: 5px;
+  margin: 5px 0 5px 0;
+  border: 0;
+  border-radius: 5px;
+}

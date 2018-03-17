@@ -1,8 +1,8 @@
 //
-@import url('https://fonts.googleapis.com/css?family=Bree+Serif');
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif");
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
-body::after{
+body::after {
   content: "";
   // background-image: url("../media/images/hackonaboatathon.jpg");
   background-size: cover;
@@ -15,34 +15,31 @@ body::after{
   z-index: -1;
 }
 
-.top{
-  font-family: 'Bree Serif', serif;
+.top {
+  font-family: "Bree Serif", serif;
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: rgba(30,144,255,0.5);
+  background-color: rgba(30, 144, 255, 0.5);
   left: 0;
-  top:0;
-  display: grid;
-  grid-template-rows:  [header-start] 18% [header-end] 77vh [site-end];
+  top: 0;
 }
 
-.icon-right{
+.icon-right {
   float: right;
-  transition: .25s ease-in-out;
-  &:hover{
+  transition: 0.25s ease-in-out;
+  &:hover {
     color: grey;
   }
 }
 
-.content{
+.content {
   font-size: 25vh;
   color: #fafafa;
   text-align: center;
-  grid-row: header-end/site-end;
 }
 
-.input{
+.input {
   padding: 5px;
   margin: 0;
   border: 0;
