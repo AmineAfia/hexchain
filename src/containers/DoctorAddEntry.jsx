@@ -31,7 +31,8 @@ class RegistrationForm extends React.Component {
       city: "",
       country: "",
       diseases: "",
-      symptoms: []
+      symptoms: [],
+      agreement: false
     };
     this.inputOnChange = this.inputOnChange.bind(this);
     this.addSymptom = this.addSymptom.bind(this);
@@ -39,11 +40,12 @@ class RegistrationForm extends React.Component {
 
   inputOnChange(event) {
     const { target } = event;
+    console.log(target.id, target.checked);
     const value = target.type === "checkbox" ? target.checked : target.value;
-    const { name } = target;
+    const { id } = target;
 
     this.setState({
-      [name]: value
+      [id]: value
     });
   }
 
@@ -61,6 +63,7 @@ class RegistrationForm extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
 
@@ -110,7 +113,7 @@ class RegistrationForm extends React.Component {
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input onChange={this.inputOnChange} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="Age">
           {getFieldDecorator("age", {
@@ -122,7 +125,7 @@ class RegistrationForm extends React.Component {
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input onChange={this.inputOnChange} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="Nationality">
           {getFieldDecorator("nationality", {
@@ -134,7 +137,7 @@ class RegistrationForm extends React.Component {
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input onChange={this.inputOnChange} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="City">
           {getFieldDecorator("city", {
@@ -146,7 +149,7 @@ class RegistrationForm extends React.Component {
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input onChange={this.inputOnChange} />)}
         </FormItem>
         <FormItem {...formItemLayout} label="Country">
           {getFieldDecorator("country", {
@@ -157,7 +160,7 @@ class RegistrationForm extends React.Component {
               onChange={this.handleWebsiteChange}
               placeholder="Country"
             >
-              <Input />
+              <Input onChange={this.inputOnChange} />
             </AutoComplete>
           )}
         </FormItem>
@@ -209,7 +212,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("agreement", {
             valuePropName: "checked"
           })(
-            <Checkbox>
+            <Checkbox onChange={this.inputOnChange}>
               I have read the <a href="">agreement</a>
             </Checkbox>
           )}
