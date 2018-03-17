@@ -5,7 +5,7 @@ import Web3 from "web3";
 import TruffleContract from "truffle-contract";
 
 import LoginContainer from "./containers/LoginContainer";
-import DoctorView from "./components/content/DoctorView";
+import DoctorContainer from "./containers/DoctorContainer";
 import OrgaView from "./components/content/OrgaView";
 import Home from "./components/Home";
 
@@ -27,7 +27,6 @@ class App extends React.Component {
 			voting: false,
 			patients: []
 		};
-
 		if (typeof web3 != "undefined") {
 			this.web3Provider = web3.currentProvider;
 		} else {

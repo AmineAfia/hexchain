@@ -10,6 +10,6 @@ export default class DoctorContainer extends React.Component {
   }
 
   render() {
-    <DoctorView />;
+    return <DoctorView />;
   }
 }
