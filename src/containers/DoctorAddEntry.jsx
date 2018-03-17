@@ -11,52 +11,54 @@ import {
   Col,
   Checkbox,
   Button,
-  AutoComplete
+  AutoComplete,
+  List
 } from "antd";
+import { diseases, countries } from "../constants/mockup";
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [
-  {
-    value: "zhejiang",
-    label: "Zhejiang",
-    children: [
-      {
-        value: "hangzhou",
-        label: "Hangzhou",
-        children: [
-          {
-            value: "xihu",
-            label: "West Lake"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    value: "jiangsu",
-    label: "Jiangsu",
-    children: [
-      {
-        value: "nanjing",
-        label: "Nanjing",
-        children: [
-          {
-            value: "zhonghuamen",
-            label: "Zhong Hua Men"
-          }
-        ]
-      }
-    ]
-  }
-];
-
 class RegistrationForm extends React.Component {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: []
-  };
+  constructor() {
+    super();
+    this.state = {
+      confirmDirty: false,
+      autoCompleteResult: [],
+      name: "",
+      age: -1,
+      nationality: "",
+      city: "",
+      country: "",
+      diseases: "",
+      symptoms: []
+    };
+    this.inputOnChange = this.inputOnChange.bind(this);
+    this.addSymptom = this.addSymptom.bind(this);
+  }
+
+  inputOnChange(event) {
+    const { target } = event;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const { name } = target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  addSymptom(event) {
+    const { target } = event;
+    const value = target.value;
+
+    if (value) {
+      let retval = this.state.symptoms;
+      retval.push(value);
+      this.setState({
+        symptoms: retval
+      });
+    }
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -99,52 +101,109 @@ class RegistrationForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <FormItem
-          {...formItemLayout}
-          label={
-            <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-          }
-        >
-          {getFieldDecorator("nickname", {
+        <FormItem {...formItemLayout} label="Name">
+          {getFieldDecorator("name", {
             rules: [
               {
                 required: true,
-                message: "Please input your nickname!",
+                message: "Please input patient name!",
                 whitespace: true
               }
             ]
           })(<Input />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="Habitual Residence">
-          {getFieldDecorator("residence", {
-            initialValue: ["zhejiang", "hangzhou", "xihu"],
+        <FormItem {...formItemLayout} label="Age">
+          {getFieldDecorator("age", {
             rules: [
               {
-                type: "array",
                 required: true,
-                message: "Please select your habitual residence!"
+                message: "Please input patient age!",
+                placeholder: "Age",
+                whitespace: true
               }
             ]
-          })(<Cascader options={residences} />)}
+          })(<Input />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="Website">
-          {getFieldDecorator("website", {
-            rules: [{ required: true, message: "Please input website!" }]
+        <FormItem {...formItemLayout} label="Nationality">
+          {getFieldDecorator("nationality", {
+            rules: [
+              {
+                required: true,
+                message: "Please input patient nationality!",
+                placeholder: "Nationality",
+                whitespace: true
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
+        <FormItem {...formItemLayout} label="City">
+          {getFieldDecorator("city", {
+            rules: [
+              {
+                required: true,
+                message: "Please input the city of the patient!",
+                placeholder: "City",
+                whitespace: true
+              }
+            ]
+          })(<Input />)}
+        </FormItem>
+        <FormItem {...formItemLayout} label="Country">
+          {getFieldDecorator("country", {
+            rules: [{ required: true, message: "Please input Country!" }]
           })(
             <AutoComplete
               dataSource={websiteOptions}
               onChange={this.handleWebsiteChange}
-              placeholder="website"
+              placeholder="Country"
             >
               <Input />
             </AutoComplete>
           )}
         </FormItem>
+        <div className="disease">
+          <FormItem {...formItemLayout} label="Disease">
+            {getFieldDecorator("residence", {
+              initialValue: ["infectious", "flue"],
+              rules: [
+                {
+                  type: "array",
+                  required: true,
+                  message: "Please select the patients diseas!"
+                }
+              ]
+            })(<Cascader options={diseases} />)}
+          </FormItem>
+          <div
+            className="disease-symp"
+            style={{
+              display: "grid",
+              gridAutoFlow: "column",
+              marginLeft: "11%"
+            }}
+          >
+            <FormItem {...formItemLayout} label="Symptom">
+              {getFieldDecorator("symptom", {
+                rules: [
+                  {
+                    required: true,
+                    message: "Add Symptom!",
+                    placeholder: "Symptom",
+                    whitespace: true
+                  }
+                ]
+              })(<Input onPressEnter={this.addSymptom} />)}
+            </FormItem>
+            <List
+              bordered
+              dataSource={this.state.symptoms}
+              renderItem={item => (
+                <List.Item actions={[<a>delete</a>]}>{item}</List.Item>
+              )}
+            />
+            <div className="symptoms" />
+          </div>
+        </div>
         <FormItem {...tailFormItemLayout}>
           {getFieldDecorator("agreement", {
             valuePropName: "checked"
@@ -165,3 +224,4 @@ class RegistrationForm extends React.Component {
 }
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
+export default WrappedRegistrationForm;
