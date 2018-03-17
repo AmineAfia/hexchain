@@ -1,6 +1,8 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier", "prettier/flowtype", "prettier/react"],
   "rules": {
-    "import/no-named-as-default": "off"
-  }
+    "import/no-named-as-default": "off",
+    "linebreak-style": ["error", "windows"]
+  },
+  "plugins": ["react", "jsx-a11y", "import"]
 }
