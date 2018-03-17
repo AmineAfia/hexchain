@@ -19,7 +19,7 @@ export default class DoctorContainer extends React.Component {
           if (context && !this.state.name) {
             context.doctors(1).then(doc => {
               if (doc[1]) {
-                setTimeout(this.setState({ name: doc[1] }), 1);
+                setTimeout(this.setState({ name: doc[1], healthInstance:context}), 1);
               }
             });
           }
