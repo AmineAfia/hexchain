@@ -41,7 +41,7 @@ contract Health {
     function Health() public {
         patientsCount = 0;
         doctorsCount = 0;
-        
+
         addPatient("Ben", 17, "Canada", "Toronto", "Canada");
         addPatient("Adam", 22, "France", "Paris", "Germany");
         addDoctor("Philip", "Hospital 1");
@@ -65,12 +65,23 @@ contract Health {
     // addDisease
     // TODO: Please solidity implement string arrays!! Now, I need to do a dirty hack on the client now
     // test data: "Ben", "Cancer", "symptom 1", "Philip"
-    function addDiseaseToPatient(string _patientName, string _name, string _symptoms, string _doctor) public {
+    function addDiseaseToPatient(string _patientName, string _name, string _symptoms, string _doctor) public returns(bool) {
         addDisease(_name, _symptoms, _doctor);
         uint _patientId = getPatientIdByName(_patientName);
         patients[_patientId].patientDiseasesCount++;
         patients[_patientId].diseases[patients[_patientId].patientDiseasesCount] = diseasesCount;
+        return true;
     }
+
+    // function editDisease(string _patientName, string _diseaseName, string _syptom) {
+    //     uint _patientId = getPatientIdByName(_patientName);
+    //     for (uint l = 0; l <= patients[_patientId].patientDiseasesCount; l++) {
+    //         if (keccak256(diseases[patients[_patientId].diseases[l]].name) == keccak256(_patientName)) {
+    //             diseases[patients[_patientId].diseases[l]].syptoms.push(_syptom);
+    //         }
+    //     }
+    //     patients[_patientId].
+    // }
     
     function getPatientDiseases(uint _id) public returns(uint[5]) {
         return patients[_id].diseases;
@@ -166,29 +177,3 @@ contract Health {
     }
    */ 
 }
-
-
-
-
-// contract BuyRecord is EditRecord {
-//     // Query patiences WIP
-//     function getPatientsPrice(string _disease) private view returns (uint) {
-//         uint buyingPrice;
-//         for (uint x = 1; x <= patientsCount; x++) {
-//             buyingPrice += patients[x].diseases[_disease].price;
-//         }
-//         return buyingPrice;
-//     }
-
-//     Buy Patiences data
-//     function buyPatientsData(string _disease) public returns (uint price, uint numberOfPatients, string[] diseaseCountries, string[] diseaseCities) {
-//         for (uint i = 0; i <= patientsCount; i++) {
-//             if (patients[i].diseases[_disease].name != "") {
-//                 price += patients[i].diseases[_disease].price;
-//                 numberOfPatients += 1;
-//                 diseaseCountries.push(patients[i].country);
-//                 diseaseCities.push(patients[i].city);
-//             }
-//         }
-//     }
-// }

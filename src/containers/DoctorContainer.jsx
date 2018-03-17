@@ -1,6 +1,7 @@
 import React from "react";
 import DoctorView from "../components/content/DoctorView";
 import { AppConsumer } from "../App";
+import { setTimeout } from "timers";
 
 export default class DoctorContainer extends React.Component {
   constructor() {
@@ -17,10 +18,9 @@ export default class DoctorContainer extends React.Component {
         {context => {
           if (context && !this.state.name) {
             context.doctors(1).then(doc => {
-              this.setState({
-                name: doc[1],
-                healthInstance: context
-              });
+              if (doc[1]) {
+                setTimeout(this.setState({ name: doc[1], healthInstance:context}), 1);
+              }
             });
           }
           return (
