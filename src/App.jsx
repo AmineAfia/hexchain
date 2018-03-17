@@ -97,7 +97,7 @@ class App extends React.Component {
               <Route
                 path="/"
                 component={() => (
-                  <Home healthInstance={this.state.healthInstance} />
+                  <ChooseContainer healthInstance={this.state.healthInstance} />
                 )}
                 exact
               />
