@@ -2,13 +2,14 @@ import React from "react";
 import { Input } from "antd";
 
 const Search = Input.Search;
-const DoctorSearch = () => {
+const DoctorSearch = props => {
   return (
     <Search
-      style={{ margin: "50px 0" }}
+      className="search-input"
       placeholder="Search for patient"
       enterButton="Search"
       size="large"
+      onSearch={props.onSearch}
     />
   );
 };
