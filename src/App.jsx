@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import ReactDOM from 'react-dom'
 import {
   BrowserRouter,
   Route,
@@ -18,6 +19,7 @@ const routes = [
   component: ()=>{ return( <div>Hello World!</div>)},
   }
 ];
+
 class App extends React.Component {
   render() {
     return (
