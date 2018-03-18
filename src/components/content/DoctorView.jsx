@@ -1,17 +1,19 @@
 import React from "react";
 import { Collapse } from "antd";
 import DoctorAddEntry from "../../containers/DoctorAddEntry";
-import DoctorSearch from "./DoctorSearch";
+import DoctorSearchContainer from "../../containers/DoctorSearchContainer";
 import "./DoctorView.scss";
 
 const { Panel } = Collapse;
 const WELCOME = "Welcome ";
 const ADD = "Add a Patient";
 
-const DoctorView = () => {
+const DoctorView = props => {
 	return (
 		<div className="doctor">
-			<div className="doctor-header">{WELCOME} Dr. Prop </div>
+			<div className="doctor-header">
+				{WELCOME} Dr. {props.name}{" "}
+			</div>
 			<div className="doctor-content">
 				<div className="doctor-wrapper">
 					<Collapse
@@ -20,10 +22,16 @@ const DoctorView = () => {
 						style={{ width: "800px" }}
 					>
 						<Panel header="Add a patient" key="1">
-							<DoctorAddEntry />
+							<DoctorAddEntry
+								togglePatientOverlay={props.togglePatientOverlay}
+								showPatient={props.showPatient}
+							/>
 						</Panel>
 					</Collapse>
-					<DoctorSearch />
+					<DoctorSearchContainer
+						healthInstance={props.healthInstance}
+						account={props.account}
+					/>
 				</div>
 			</div>
 		</div>

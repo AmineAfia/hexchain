@@ -1,0 +1,16 @@
+.patient {
+  -webkit-box-shadow: 0px 0px 96px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 96px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 96px -4px rgba(0, 0, 0, 0.75);
+  width: 50vw !important;
+  position: absolute;
+  left: 25vw;
+  font-size: 20px;
+  top: 25vh;
+  height: 75vh;
+  z-index: 5;
+  &-tag {
+    width: 250px;
+    display: inline-block;
+  }
+}

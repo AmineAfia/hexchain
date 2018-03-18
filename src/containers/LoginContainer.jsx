@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router";
 import LoginView from "../components/content/LoginView";
-
 export default class LoginContainer extends React.Component {
   constructor() {
     super();
@@ -21,7 +20,6 @@ export default class LoginContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.redirect) {
       return <Redirect push to="/doctor" />;
     } else {

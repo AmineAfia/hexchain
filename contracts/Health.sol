@@ -1,7 +1,11 @@
+import "./strings.sol";
+
 pragma solidity ^0.4.2;
 pragma experimental ABIEncoderV2;
 
 contract Health {
+    using strings for *;
+    
     struct Patient {
         uint id;
         string name;
@@ -10,7 +14,8 @@ contract Health {
         string city;
         string country;
         uint balance;
-        uint[] diseases;
+        uint[5] diseases;
+        uint patientDiseasesCount;
         // mapping(string => Disease) diseases;
     }
 
@@ -40,7 +45,7 @@ contract Health {
     function Health() public {
         patientsCount = 0;
         doctorsCount = 0;
-        
+
         addPatient("Ben", 17, "Canada", "Toronto", "Canada");
         addPatient("Adam", 22, "France", "Paris", "Germany");
         addDoctor("Philip", "Hospital 1");
@@ -49,23 +54,41 @@ contract Health {
     // test data: "Amine", 20, "Morocco", "Karlsruhe", "Germany"
     function addPatient(string _name, uint _age, string _nationality, string _city, string _country) public {
         patientsCount++;
-        uint[] memory _diseases;
+        uint[5] memory _diseases;
         patients[patientsCount] = Patient(patientsCount, _name, _age,
-                                          _nationality, _city, _country, 0, _diseases);
+                                          _nationality, _city, _country, 0, _diseases, 0);
+    }
+
+    // test data: "Cancer", "symptom 1", "Dr. Philip"
+    function addDisease(string _name, string _symptoms, string _doctor) {
+        diseasesCount++;
+        Disease memory d = Disease(diseasesCount, _name, _symptoms, _doctor, now, 15500000000000000);
+        diseases[diseasesCount] = d;
     }
 
     // addDisease
     // TODO: Please solidity implement string arrays!! Now, I need to do a dirty hack on the client now
     // test data: "Ben", "Cancer", "symptom 1", "Philip"
-    // TODO: fix the vanishing array issue
-    function addDiseaseToPatient(string _patientName, string _name, string _symptoms, string _doctor) public {
-        // get patient ID
+    function addDiseaseToPatient(string _patientName, string _name, string _symptoms, string _doctor) public returns(bool) {
+        addDisease(_name, _symptoms, _doctor);
         uint _patientId = getPatientIdByName(_patientName);
-        // get the index of the last disease and increment it
-        diseasesCount++;
-        Disease memory d = Disease(diseasesCount, _name, _symptoms, _doctor, now, 15500000000000000);
-        diseases[diseasesCount] = d;
-        patients[_patientId].diseases.push(diseasesCount);
+        patients[_patientId].patientDiseasesCount++;
+        patients[_patientId].diseases[patients[_patientId].patientDiseasesCount] = diseasesCount;
+        return true;
+    }
+
+    // function editDisease(string _patientName, string _diseaseName, string _syptom) {
+    //     uint _patientId = getPatientIdByName(_patientName);
+    //     for (uint l = 0; l <= patients[_patientId].patientDiseasesCount; l++) {
+    //         if (keccak256(diseases[patients[_patientId].diseases[l]].name) == keccak256(_patientName)) {
+    //             diseases[patients[_patientId].diseases[l]].syptoms.push(_syptom);
+    //         }
+    //     }
+    //     patients[_patientId].
+    // }
+    
+    function getPatientDiseases(uint _id) public returns(uint[5]) {
+        return patients[_id].diseases;
     }
     
     //addDoctor
@@ -76,16 +99,17 @@ contract Health {
     }
 
     // editPatient
-    // test data: 1, "Ben", 90, "UK", "London", "UK", 10
+    // test data: 1, "Ben", 27, "UK", "London", "UK", 10
     function editPatient(uint _id, string _name, uint _age, string _nationality, string _city, string _country, uint _balance) public returns(bool) {
-        uint[] memory _diseases = getPatientDiseasesIds(_id);
-        patients[_id] = Patient(_id, _name, _age, _nationality, _city, _country, _balance, _diseases);
+        uint[5] memory _diseases = getPatientDiseasesIds(_id);
+        uint _pCount = patients[_id].patientDiseasesCount;
+        patients[_id] = Patient(_id, _name, _age, _nationality, _city, _country, _balance, _diseases, _pCount);
         return true;
     }
 
     // test data: 1
-    function getPatientDiseasesIds(uint _id) returns(uint[]) {
-        uint[] _diseasesArray = patients[_id].diseases;
+    function getPatientDiseasesIds(uint _id) returns(uint[5]) {
+        uint[5] _diseasesArray = patients[_id].diseases;
         return _diseasesArray;
     }
 
@@ -99,6 +123,23 @@ contract Health {
         return 0;
     }
 
+    // lookupPatient
+    function getPatientByName(string _name) public returns(string) {
+        for (uint x = 0; x <= patientsCount; x++) {
+            if (keccak256(patients[x].name) == keccak256(_name)) {
+                string memory _age = uintToString(patients[x].age);
+                string memory s = patients[x].name.toSlice()
+                                  .concat("   |   ".toSlice()).toSlice()
+                                  .concat(patients[x].country.toSlice());
+                //s = s.toSlice().concat(_age.toSlice());
+                //s = s.toSlice().concat("-".toSlice());
+                //s = s.toSlice().concat(_age.toSlice());
+                //s = s.toSlice().concat("*".toSlice());
+                return s;
+            }
+        }
+    }
+
     // test data: "Philip"
     function getDoctorIdByName(string _name) public returns(uint) {
         for (uint j = 0; j <= doctorsCount; j++) {
@@ -108,32 +149,43 @@ contract Health {
         }
         return 0;
     }
+    
+    function uintToString(uint v) public constant returns (string str) {
+        uint maxlength = 100;
+        bytes memory reversed = new bytes(maxlength);
+        uint i = 0;
+        while (v != 0) {
+            uint remainder = v % 10;
+            v = v / 10;
+            reversed[i++] = byte(48 + remainder);
+        }
+        bytes memory s = new bytes(i + 1);
+        for (uint j = 0; j <= i; j++) {
+            s[j] = reversed[i - j];
+        }
+        str = string(s);
+    }
 
-    // lookupPatient
+    // getdataToBuy
+    function getDataToBuy(string _disease, uint _age, string _country) public returns(uint) {
+        uint numberOfSelectedPatients;
+
+        for ( uint k = 0; k <= patientsCount; k++) {
+            if (patients[k].age == _age && keccak256(patients[k].country) == keccak256(_country)) {
+                    for (uint z = 0; z <= patients[k].patientDiseasesCount; z++) {
+                        uint tmp = patients[k].diseases[z];
+                        if (keccak256(diseases[tmp].name) == keccak256(_disease)) {
+                            numberOfSelectedPatients++;
+                        }
+                    }
+            }
+        }
+        return numberOfSelectedPatients;
+    }
+
+/*
+    function buyData() payable {
+        this.address.transfer(10);
+    }
+   */ 
 }
-
-
-
-
-// contract BuyRecord is EditRecord {
-//     // Query patiences WIP
-//     function getPatientsPrice(string _disease) private view returns (uint) {
-//         uint buyingPrice;
-//         for (uint x = 1; x <= patientsCount; x++) {
-//             buyingPrice += patients[x].diseases[_disease].price;
-//         }
-//         return buyingPrice;
-//     }
-
-//     Buy Patiences data
-//     function buyPatientsData(string _disease) public returns (uint price, uint numberOfPatients, string[] diseaseCountries, string[] diseaseCities) {
-//         for (uint i = 0; i <= patientsCount; i++) {
-//             if (patients[i].diseases[_disease].name != "") {
-//                 price += patients[i].diseases[_disease].price;
-//                 numberOfPatients += 1;
-//                 diseaseCountries.push(patients[i].country);
-//                 diseaseCities.push(patients[i].city);
-//             }
-//         }
-//     }
-// }
