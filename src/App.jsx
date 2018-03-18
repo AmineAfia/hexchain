@@ -7,7 +7,7 @@ import TruffleContract from "truffle-contract";
 import LoginContainer from "./containers/LoginContainer";
 import DoctorContainer from "./containers/DoctorContainer";
 import OrgaView from "./components/content/OrgaView";
-import ChooseContainer from "./containers/ChooseContainer";
+import Home from "./components/Home";
 
 import Health from "../build/contracts/Health.json";
 import "antd/dist/antd.css";
