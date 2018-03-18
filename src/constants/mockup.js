@@ -208,16 +208,16 @@ export const countries = [
 
 export const diseases = [
   {
-    value: "cancer",
+    value: "Cancer",
     label: "Cancer",
     children: []
   },
   {
-    value: "infectious",
+    value: "Infectious",
     label: "Infectious",
     children: [
       {
-        value: "flue",
+        value: "Flue",
         label: "Flue"
       },
       {
@@ -226,7 +226,7 @@ export const diseases = [
     ]
   },
   {
-    value: "injury",
+    value: "Injury",
     label: "Injury"
   }
 ];

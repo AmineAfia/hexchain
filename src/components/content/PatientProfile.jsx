@@ -28,6 +28,13 @@ const PatientProfile = props => {
       <p className="patient-country">
         <span className="patient-tag">Country:</span> {props.patient.country}
       </p>
+      <p className="patient-disease">
+        <span className="patient-tag">Disease:</span> {props.patient.diseases}
+      </p>
+      <p className="patient-symptoms">
+        <span className="patient-tag">Symptoms:</span>{" "}
+        {props.patient.symptoms.join(", ")}
+      </p>
       <p className="patient-dis" />
     </Card>
   );
