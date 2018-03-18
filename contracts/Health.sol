@@ -1,7 +1,11 @@
+import "./strings.sol";
+
 pragma solidity ^0.4.2;
 pragma experimental ABIEncoderV2;
 
 contract Health {
+    using strings for *;
+    
     struct Patient {
         uint id;
         string name;
@@ -42,7 +46,8 @@ contract Health {
         patientsCount = 0;
         doctorsCount = 0;
 
-        addPatient("Ben", 17, "Canada", "Toronto", "Canada");
+        addPatient("Ben", 17, "UK", "London", "UK");
+        addDiseaseToPatient("Ben", "Cancer", "symptom 1", "Philip");
         addPatient("Adam", 22, "France", "Paris", "Germany");
         addDoctor("Philip", "Hospital 1");
     }
@@ -119,6 +124,23 @@ contract Health {
         return 0;
     }
 
+    // lookupPatient
+    function getPatientByName(string _name) public returns(string) {
+        for (uint x = 0; x <= patientsCount; x++) {
+            if (keccak256(patients[x].name) == keccak256(_name)) {
+                string memory _age = uintToString(patients[x].age);
+                string memory s = patients[x].name.toSlice()
+                                  .concat("   |   ".toSlice()).toSlice()
+                                  .concat(patients[x].country.toSlice());
+                //s = s.toSlice().concat(_age.toSlice());
+                //s = s.toSlice().concat("-".toSlice());
+                //s = s.toSlice().concat(_age.toSlice());
+                //s = s.toSlice().concat("*".toSlice());
+                return s;
+            }
+        }
+    }
+
     // test data: "Philip"
     function getDoctorIdByName(string _name) public returns(uint) {
         for (uint j = 0; j <= doctorsCount; j++) {
@@ -127,15 +149,6 @@ contract Health {
             }
         }
         return 0;
-    }
-
-    // lookupPatient
-    function getPatientByName(string _name) public returns(string[3]) {
-        for (uint x = 0; x <= patientsCount; x++) {
-            if (keccak256(patients[x].name) == keccak256(_name)) {
-                return [patients[x].name, uintToString(patients[x].age), patients[x].country];
-            }
-        }
     }
     
     function uintToString(uint v) public constant returns (string str) {
@@ -155,15 +168,17 @@ contract Health {
     }
 
     // getdataToBuy
-    function getDataToBuy(string _disease, uint _age, string _country) public returns(uint) {
-        uint numberOfSelectedPatients;
+    function getDataToBuy(string _disease, string _country) public returns(uint[10]) {
+        uint[10] memory numberOfSelectedPatients;
+        uint cnt;
 
         for ( uint k = 0; k <= patientsCount; k++) {
-            if (patients[k].age == _age && keccak256(patients[k].country) == keccak256(_country)) {
+            if (keccak256(patients[k].country) == keccak256(_country)) {
                     for (uint z = 0; z <= patients[k].patientDiseasesCount; z++) {
                         uint tmp = patients[k].diseases[z];
                         if (keccak256(diseases[tmp].name) == keccak256(_disease)) {
-                            numberOfSelectedPatients++;
+                            cnt++;
+                            numberOfSelectedPatients[cnt] = k;
                         }
                     }
             }
@@ -171,9 +186,12 @@ contract Health {
         return numberOfSelectedPatients;
     }
 
-/*
-    function buyData() payable {
-        this.address.transfer(10);
+    function buyData(uint _id, uint price) public payable {
+        patients[_id].balance += price;
     }
-   */ 
+    
+    function getContractBalance() public returns(uint) {
+        return this.balance;
+    }
+    
 }

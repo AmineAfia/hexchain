@@ -14,9 +14,13 @@ export default class DoctorSearchContainer extends React.Component {
   }
 
   onSearch(value) {
-    // this.state.context.getPatientByName(value).then(patient => {
-    //   console.log(patient);
-    // });
+    // console.log("------------------->", this.props.healthInstance);
+    this.props.healthInstance.getPatientByName.call(value).then(patient => {
+      // console.log(patient);
+      // var p = patient.split("-");
+      // var tmp = p.join("|");
+      this.setState({ results: [patient] });
+    });
   }
 
   render() {
@@ -29,6 +33,9 @@ export default class DoctorSearchContainer extends React.Component {
           bordered
           dataSource={this.state.results}
           renderItem={item => <List.Item>{item}</List.Item>}
+          renderItem={item => (
+            <List.Item actions={[<a>Edit</a>]}>{item}</List.Item>
+          )}
         />
       </div>
     );

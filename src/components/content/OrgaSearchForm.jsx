@@ -1,8 +1,8 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { Select } from "antd";
+import { Layout } from "antd";
 import "./OrgaSearchForm.scss";
-
+import Select from "antd/lib/select";
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -13,35 +13,35 @@ class OrgaSearchForm extends React.Component {
 			diseaseKeys: [],
 			regionKeys: []
 		};
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit = e => {
+	handleSubmit = (e, data) => {
 		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
-			if (!err) {
-				console.log("Received values of form: ", values);
-			}
-		});
+		console.log(data);
+		this.props.getRecords(data.diseases, data.regions);
+		this.props.handleSubmit();
 	};
 	render() {
-		const { getFieldDecorator } = this.props.form;
+		const { getFieldDecorator, getFieldsValue } = this.props.form;
+		let { regionKeys, diseaseKeys } = this.props;
 		return (
-			<Form layout="vertical" className="orga-search-form">
+			<Form
+				layout="vertical"
+				className="orga-search-form"
+				onSubmit={e => this.handleSubmit(e, getFieldsValue())}
+			>
 				<FormItem id="disease-select">
-					{getFieldDecorator("diseases", {
-						rules: [{ validator: this.checkMention }]
-					})(
+					{getFieldDecorator("diseases", {})(
 						<Select mode="tags" placeholder="Diseases" tokenSeparators={[","]}>
-							{this.state.diseaseKeys.map(k => <Option key={k}>{k}</Option>)}{" "}
+							{diseaseKeys.map(k => <Option key={k}>{k}</Option>)}
 						</Select>
 					)}
 				</FormItem>
 				<FormItem id="region-select">
-					{getFieldDecorator("regions", {
-						rules: [{ validator: this.checkMention }]
-					})(
+					{getFieldDecorator("regions", {})(
 						<Select mode="tags" tokenSeparators={[","]} placeholder="Regions">
-							{this.state.regionKeys.map(k => <Option key={k}>{k}</Option>)}{" "}
+							{regionKeys.map(k => <Option key={k}>{k}</Option>)}
 						</Select>
 					)}
 				</FormItem>

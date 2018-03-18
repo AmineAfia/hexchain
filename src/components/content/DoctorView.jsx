@@ -22,10 +22,18 @@ const DoctorView = props => {
             style={{ width: "800px" }}
           >
             <Panel header="Add a patient" key="1">
-              <DoctorAddEntry />
+              <DoctorAddEntry
+                togglePatientOverlay={props.togglePatientOverlay}
+                showPatient={props.showPatient}
+                healthInstance={props.healthInstance}
+                account={props.account}
+              />
             </Panel>
           </Collapse>
-          <DoctorSearchContainer />
+          <DoctorSearchContainer
+            healthInstance={props.healthInstance}
+            account={props.account}
+          />
         </div>
       </div>
     </div>
