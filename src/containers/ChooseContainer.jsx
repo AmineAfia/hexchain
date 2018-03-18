@@ -20,7 +20,9 @@ export default class ChooseContainer extends React.Component {
     if (this.state.redirect == false) {
       return (
         <div style={{ height: "100%", width: "100%" }}>
-          I am...
+          <font size="12" style={{ width: "100%" }}>
+            I am...
+          </font>
           <button onClick={clickedDoctor}>
             <img src="../../img/doctor.svg" />
             Doctor
@@ -32,9 +34,13 @@ export default class ChooseContainer extends React.Component {
         </div>
       );
     } else {
-      if (this.state.redirect == "doctor")
-        return <Redirect push to="/doctor" />;
-      else return <Redirect push to="/orga" />;
+      if (this.state.redirect == "doctor") {
+        this.setState({ redirect: true });
+        return <Redirect to="/doctor" push />;
+      } else {
+        this.setState({ redirect: true });
+        return <Redirect to="/orgasearch" push />;
+      }
     }
   }
 }
