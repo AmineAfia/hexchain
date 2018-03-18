@@ -167,11 +167,11 @@ contract Health {
     }
 
     // getdataToBuy
-    function getDataToBuy(string _disease, uint _age, string _country) public returns(uint) {
+    function getDataToBuy(string _disease, string _country) public returns(uint) {
         uint numberOfSelectedPatients;
 
         for ( uint k = 0; k <= patientsCount; k++) {
-            if (patients[k].age == _age && keccak256(patients[k].country) == keccak256(_country)) {
+            if (keccak256(patients[k].country) == keccak256(_country)) {
                     for (uint z = 0; z <= patients[k].patientDiseasesCount; z++) {
                         uint tmp = patients[k].diseases[z];
                         if (keccak256(diseases[tmp].name) == keccak256(_disease)) {

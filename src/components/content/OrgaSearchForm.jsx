@@ -16,19 +16,20 @@ class OrgaSearchForm extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit = e => {
+	handleSubmit = (e, data) => {
 		e.preventDefault();
-		console.log("plz");
+		console.log(data);
+		this.props.getRecords(data.diseases, data.regions);
 		this.props.handleSubmit();
 	};
 	render() {
-		const { getFieldDecorator } = this.props.form;
+		const { getFieldDecorator, getFieldsValue } = this.props.form;
 		let { regionKeys, diseaseKeys } = this.props;
 		return (
 			<Form
 				layout="vertical"
 				className="orga-search-form"
-				onSubmit={this.handleSubmit}
+				onSubmit={e => this.handleSubmit(e, getFieldsValue())}
 			>
 				<FormItem id="disease-select">
 					{getFieldDecorator("diseases", {})(

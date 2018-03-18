@@ -36,6 +36,7 @@ export default class OrgaSearchFormContainer extends React.Component {
 								regionKeys={["USA"]}
 								diseaseKeys={["Cancer"]}
 								handleSubmit={this.handleSubmit}
+								getRecords={this.props.getRecords}
 							/>
 						</Panel>
 					</Collapse>

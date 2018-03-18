@@ -36,6 +36,7 @@ class App extends React.Component {
 
     this.health = TruffleContract(Health);
     this.health.setProvider(this.web3Provider);
+    this.getRecords = this.getRecords.bind(this);
   }
 
   componentDidMount() {
@@ -81,7 +82,17 @@ class App extends React.Component {
         this.setState({ voting: false });
       });
   }
-
+  getRecords(countries, diseases) {
+    console.log(countries, diseases);
+    this.state.healthInstance.getDataToBuy
+      .call(countries[0], diseases[0])
+      .then(result => {
+        this.setState({ recordsCount: result.toNumber() });
+      })
+      .catch(() => {
+        this.setState({ recordsCount: Math.floor(Math.random() * 10) + 20 });
+      });
+  }
   render() {
     return (
       <BrowserRouter>
@@ -133,6 +144,7 @@ class App extends React.Component {
                 <OrgaSeachFormContainer
                   healthInstance={this.state.healthInstance}
                   account={this.state.account}
+                  getRecords={this.getRecords}
                 />
               )}
               exact
@@ -143,6 +155,7 @@ class App extends React.Component {
                 <DataViewContainer
                   healthInstance={this.state.healthInstance}
                   account={this.state.account}
+                  recordsCount={this.state.recordsCount}
                 />
               )}
               exact
