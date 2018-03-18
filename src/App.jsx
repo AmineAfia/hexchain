@@ -7,7 +7,7 @@ import TruffleContract from "truffle-contract";
 import LoginContainer from "./containers/LoginContainer";
 import DoctorContainer from "./containers/DoctorContainer";
 import OrgaView from "./components/content/OrgaView";
-import Home from "./components/Home";
+import ChooseContainer from "./containers/ChooseContainer";
 
 import Health from "../build/contracts/Health.json";
 import "antd/dist/antd.css";
@@ -93,7 +93,7 @@ class App extends React.Component {
             <Route
               path="/"
               component={() => (
-                <Home healthInstance={this.state.healthInstance} />
+                <ChooseContainer healthInstance={this.state.healthInstance} />
               )}
               exact
             />
