@@ -26,14 +26,14 @@ export default class Home extends React.Component {
           </button>
           <button onClick={clickedInstitute}>
             <img src="../../img/institute.svg" width="100%" />
-            Organization Login
+            Organization Search
           </button>
         </div>
       );
     } else {
       if (this.state.redirect == "doctor") {
         this.setState({ redirect: true });
-        return <Redirect to="/doctor" push />;
+        return <Redirect to="/login" push />;
       } else {
         this.setState({ redirect: true });
         return <Redirect to="/orgasearch" push />;
