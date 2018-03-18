@@ -30,13 +30,14 @@ class RegistrationForm extends React.Component {
       age: -1,
       nationality: "",
       city: "",
-      country: "",
+      country: "Netherlands",
       diseases: "",
       symptoms: [],
       agreement: false
     };
     this.inputOnChange = this.inputOnChange.bind(this);
     this.addSymptom = this.addSymptom.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   inputOnChange(event) {
@@ -62,6 +63,22 @@ class RegistrationForm extends React.Component {
         symptoms: retval
       });
     }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.healthInstance
+      .addPatient(
+        this.state.name,
+        this.state.age,
+        this.state.nationality,
+        this.state.city,
+        this.state.country,
+        { from: this.props.account }
+      )
+      .then(result => {
+        console.log(result);
+      });
   }
 
   render() {

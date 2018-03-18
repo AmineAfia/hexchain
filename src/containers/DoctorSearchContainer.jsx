@@ -14,13 +14,9 @@ export default class DoctorSearchContainer extends React.Component {
   }
 
   onSearch(value) {
-    // , {
-    //   from: this.props.account,
-    //   to: this.props.healthInstance.address
-    // })
-    console.log("------------------->", this.props.healthInstance);
+    // console.log("------------------->", this.props.healthInstance);
     this.props.healthInstance.getPatientByName.call(value).then(patient => {
-      console.log(patient);
+      // console.log(patient);
       // var p = patient.split("-");
       // var tmp = p.join("|");
       this.setState({ results: [patient] });

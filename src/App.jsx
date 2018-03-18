@@ -28,7 +28,7 @@ class App extends React.Component {
       this.web3Provider = web3.currentProvider;
     } else {
       this.web3Provider = new Web3.providers.HttpProvider(
-        "http://localhost:7545"
+        "http://127.0.0.1:7545"
       );
     }
 

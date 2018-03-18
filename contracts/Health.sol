@@ -46,7 +46,7 @@ contract Health {
         patientsCount = 0;
         doctorsCount = 0;
 
-        addPatient("Ben", 17, "Canada", "Toronto", "Canada");
+        addPatient("Ben", 17, "UK", "London", "UK");
         addPatient("Adam", 22, "France", "Paris", "Germany");
         addDoctor("Philip", "Hospital 1");
     }
