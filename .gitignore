@@ -3,6 +3,8 @@ build/contracts/Health.json
 build/contracts/Migrations.json
 build/contracts/Election.json
 
+build
+
 .DS_Store
 
 .idea
