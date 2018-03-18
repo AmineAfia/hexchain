@@ -17,76 +17,75 @@ import OrgaSeachFormContainer from "./containers/OrgaSearchFormContainer";
 import DataViewContainer from "./containers/DataViewContainer";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      account: "0x0",
-      candidates: [],
-      hasVoted: false,
-      loading: true,
-      voting: false,
-      patients: []
-    };
-    if (typeof web3 != "undefined") {
-      this.web3Provider = web3.currentProvider;
-    } else {
-      this.web3Provider = new Web3.providers.HttpProvider(
-        "http://localhost:7545"
-      );
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			account: "0x0",
+			candidates: [],
+			hasVoted: false,
+			loading: true,
+			voting: false,
+			patients: []
+		};
+		if (typeof web3 != "undefined") {
+			this.web3Provider = web3.currentProvider;
+		} else {
+			this.web3Provider = new Web3.providers.HttpProvider(
+				"http://localhost:7545"
+			);
+		}
 
-    this.web3 = new Web3(this.web3Provider);
+		this.web3 = new Web3(this.web3Provider);
 
-    this.health = TruffleContract(Health);
-    this.health.setProvider(this.web3Provider);
-  }
+		this.health = TruffleContract(Health);
+		this.health.setProvider(this.web3Provider);
+	}
 
-  componentDidMount() {
-    // TODO: Refactor with promise chain
-    this.web3.eth.getCoinbase((err, account) => {
-      this.setState({ account });
+	componentDidMount() {
+		// TODO: Refactor with promise chain
+		this.web3.eth.getCoinbase((err, account) => {
+			this.setState({ account });
 
-      // get an instance of the Health contract
-      this.health.deployed().then(healthInstance => {
-        this.healthInstance = healthInstance;
-        this.healthInstance.patientsCount().then(patientsCount => {
-          for (var i = 1; i <= patientsCount; i++) {
-            this.healthInstance.patients(i).then(patient => {
-              const patients = [...this.state.patients];
-              patients.push({
-                id: patient[0],
-                name: patient[1],
-                age: patient[2],
-                nationality: patient[3],
-                city: patient[4],
-                country: patient[5],
-                balance: patient[6]
-              });
-              this.setState({ patients: patients });
-              console.log(this.state.patients);
-            });
-          }
-        });
-      });
-    });
-  }
+			// get an instance of the Health contract
+			this.health.deployed().then(healthInstance => {
+				this.healthInstance = healthInstance;
+				this.healthInstance.patientsCount().then(patientsCount => {
+					for (var i = 1; i <= patientsCount; i++) {
+						this.healthInstance.patients(i).then(patient => {
+							const patients = [...this.state.patients];
+							patients.push({
+								id: patient[0],
+								name: patient[1],
+								age: patient[2],
+								nationality: patient[3],
+								city: patient[4],
+								country: patient[5],
+								balance: patient[6]
+							});
+							this.setState({ patients: patients });
+							console.log(this.state.patients);
+						});
+					}
+				});
+			});
+		});
+	}
 
-  watchEvents() {
-    // TODO: trigger event when vote is counted, not when component renders
-    this.electionInstance
-      .votedEvent(
-        {},
-        {
-          fromBlock: 0,
-          toBlock: "latest"
-        }
-      )
-      .watch((error, event) => {
-        this.setState({ voting: false });
-      });
-  }
+	watchEvents() {
+		// TODO: trigger event when vote is counted, not when component renders
+		this.electionInstance
+			.votedEvent(
+				{},
+				{
+					fromBlock: 0,
+					toBlock: "latest"
+				}
+			)
+			.watch((error, event) => {
+				this.setState({ voting: false });
+			});
+	}
 
-<<<<<<< HEAD
 	render() {
 		return (
 			<BrowserRouter>
@@ -107,28 +106,6 @@ class App extends React.Component {
 			</BrowserRouter>
 		);
 	}
-=======
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="top">
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/login" component={LoginContainer} exact />
-            <Route path="/doctor" component={DoctorContainer} exact />
-            <Route path="/orga" component={OrgaView} exact />
-            <Route
-              path="/orgasearch"
-              component={OrgaSeachFormContainer}
-              exact
-            />
-            <Route path="/orgadata" component={DataViewContainer} exact />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
->>>>>>> e60d42ac46f3fb76b0ff5edd51979f4c4bf99374
 }
 
 ReactDOM.render(<App />, document.querySelector("#root"));
