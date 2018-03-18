@@ -22,7 +22,7 @@ const gridPriceStyleActive = {
 
 export default class DataView extends React.PureComponent {
 	render() {
-		let { activePrice, setActivePrice } = this.props;
+		let { activePrice, setActivePrice, prices } = this.props;
 		return (
 			<div className="dataView">
 				<div className="dataView-header"> Organization </div>
@@ -30,14 +30,16 @@ export default class DataView extends React.PureComponent {
 					<Card
 						title={"Data"}
 						actions={[
-							<span>
-								Purchase{" "}
+							<span
+								onClick={() => this.props.payForRecords(prices[activePrice])}
+							>
+								Purchase
 								<Icon type="login" onClick={this.props.handlePurchase} />
 							</span>
 						]}
 					>
 						<Card.Grid style={gridHeaderStyle}>
-							{this.props.recordCount} Records Available
+							{this.props.records.filter(v => v).length} Records Available
 						</Card.Grid>
 						<Card.Grid
 							onClick={() => setActivePrice(0)}
