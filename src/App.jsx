@@ -7,7 +7,7 @@ import TruffleContract from "truffle-contract";
 import LoginContainer from "./containers/LoginContainer";
 import DoctorContainer from "./containers/DoctorContainer";
 import OrgaView from "./components/content/OrgaView";
-import Home from "./components/Home";
+import ChooseContainer from "./containers/ChooseContainer";
 
 import Health from "../build/contracts/Health.json";
 import "antd/dist/antd.css";
@@ -15,9 +15,6 @@ import "antd/dist/antd.css";
 import "./index.scss";
 import OrgaSeachFormContainer from "./containers/OrgaSearchFormContainer";
 import DataViewContainer from "./containers/DataViewContainer";
-
-const AppContext = React.createContext({ healthInstance: null });
-export const AppConsumer = AppContext.Consumer;
 
 class App extends React.Component {
   constructor(props) {
