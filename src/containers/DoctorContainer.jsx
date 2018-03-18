@@ -14,7 +14,11 @@ export default class DoctorContainer extends React.Component {
 
   render() {
     return (
-      <DoctorView name={this.state.name} />
+      <DoctorView
+        healthInstance={this.props.healthInstance}
+        account={this.props.account}
+        name={this.state.name}
+      />
       // <AppConsumer>
       //   {context => {
       //     if (context && !this.state.name) {

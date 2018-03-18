@@ -44,13 +44,10 @@ class App extends React.Component {
   componentDidMount() {
     // TODO: Refactor with promise chain
     this.web3.eth.getCoinbase((err, account) => {
-      this.setState({ account });
-
-      // get an instance of the Health contract
-      // console.log(this.health);
+      this.setState({ account: account });
       this.health.deployed().then(healthInstance => {
         this.healthInstance = healthInstance;
-        this.setState({ healthInstance });
+        this.setState({ healthInstance: healthInstance });
         this.healthInstance.patientsCount().then(patientsCount => {
           for (var i = 1; i <= patientsCount; i++) {
             this.healthInstance.patients(i).then(patient => {
@@ -97,28 +94,40 @@ class App extends React.Component {
               <Route
                 path="/"
                 component={() => (
-                  <Home healthInstance={this.state.healthInstance} />
+                  <Home
+                    healthInstance={this.state.healthInstance}
+                    account={this.state.account}
+                  />
                 )}
                 exact
               />
               <Route
                 path="/login"
                 component={() => (
-                  <LoginContainer healthInstance={this.state.healthInstance} />
+                  <LoginContainer
+                    healthInstance={this.state.healthInstance}
+                    account={this.state.account}
+                  />
                 )}
                 exact
               />
               <Route
                 path="/doctor"
                 component={() => (
-                  <DoctorContainer healthInstance={this.state.healthInstance} />
+                  <DoctorContainer
+                    healthInstance={this.state.healthInstance}
+                    account={this.state.account}
+                  />
                 )}
                 exact
               />
               <Route
                 path="/orga"
                 component={() => (
-                  <OrgaView healthInstance={this.state.healthInstance} />
+                  <OrgaView
+                    healthInstance={this.state.healthInstance}
+                    account={this.state.account}
+                  />
                 )}
                 exact
               />
@@ -127,6 +136,7 @@ class App extends React.Component {
                 component={() => (
                   <OrgaSeachFormContainer
                     healthInstance={this.state.healthInstance}
+                    account={this.state.account}
                   />
                 )}
                 exact
@@ -136,6 +146,7 @@ class App extends React.Component {
                 component={() => (
                   <DataViewContainer
                     healthInstance={this.state.healthInstance}
+                    account={this.state.account}
                   />
                 )}
                 exact

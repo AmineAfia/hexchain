@@ -1,7 +1,11 @@
+import "./strings.sol";
+
 pragma solidity ^0.4.2;
 pragma experimental ABIEncoderV2;
 
 contract Health {
+    using strings for *;
+    
     struct Patient {
         uint id;
         string name;
@@ -119,6 +123,23 @@ contract Health {
         return 0;
     }
 
+    // lookupPatient
+    function getPatientByName(string _name) public returns(string) {
+        for (uint x = 0; x <= patientsCount; x++) {
+            if (keccak256(patients[x].name) == keccak256(_name)) {
+                string memory _age = uintToString(patients[x].age);
+                string memory s = patients[x].name.toSlice()
+                                  .concat("   |   ".toSlice()).toSlice()
+                                  .concat(patients[x].country.toSlice());
+                //s = s.toSlice().concat(_age.toSlice());
+                //s = s.toSlice().concat("-".toSlice());
+                //s = s.toSlice().concat(_age.toSlice());
+                //s = s.toSlice().concat("*".toSlice());
+                return s;
+            }
+        }
+    }
+
     // test data: "Philip"
     function getDoctorIdByName(string _name) public returns(uint) {
         for (uint j = 0; j <= doctorsCount; j++) {
@@ -127,15 +148,6 @@ contract Health {
             }
         }
         return 0;
-    }
-
-    // lookupPatient
-    function getPatientByName(string _name) public returns(string[3]) {
-        for (uint x = 0; x <= patientsCount; x++) {
-            if (keccak256(patients[x].name) == keccak256(_name)) {
-                return [patients[x].name, uintToString(patients[x].age), patients[x].country];
-            }
-        }
     }
     
     function uintToString(uint v) public constant returns (string str) {

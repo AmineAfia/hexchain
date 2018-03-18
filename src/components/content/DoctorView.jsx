@@ -25,7 +25,10 @@ const DoctorView = props => {
               <DoctorAddEntry />
             </Panel>
           </Collapse>
-          <DoctorSearchContainer />
+          <DoctorSearchContainer
+            healthInstance={props.healthInstance}
+            account={props.account}
+          />
         </div>
       </div>
     </div>
