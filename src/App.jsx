@@ -16,9 +16,6 @@ import "./index.scss";
 import OrgaSeachFormContainer from "./containers/OrgaSearchFormContainer";
 import DataViewContainer from "./containers/DataViewContainer";
 
-const AppContext = React.createContext({ healthInstance: null });
-export const AppConsumer = AppContext.Consumer;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -91,58 +88,54 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <AppContext.Provider value={this.state.healthInstance}>
-          <div className="top">
-            <Switch>
-              <Route
-                path="/"
-                component={() => (
-                  <Home healthInstance={this.state.healthInstance} />
-                )}
-                exact
-              />
-              <Route
-                path="/login"
-                component={() => (
-                  <LoginContainer healthInstance={this.state.healthInstance} />
-                )}
-                exact
-              />
-              <Route
-                path="/doctor"
-                component={() => (
-                  <DoctorContainer healthInstance={this.state.healthInstance} />
-                )}
-                exact
-              />
-              <Route
-                path="/orga"
-                component={() => (
-                  <OrgaView healthInstance={this.state.healthInstance} />
-                )}
-                exact
-              />
-              <Route
-                path="/orgasearch"
-                component={() => (
-                  <OrgaSeachFormContainer
-                    healthInstance={this.state.healthInstance}
-                  />
-                )}
-                exact
-              />
-              <Route
-                path="/orgadata"
-                component={() => (
-                  <DataViewContainer
-                    healthInstance={this.state.healthInstance}
-                  />
-                )}
-                exact
-              />
-            </Switch>
-          </div>
-        </AppContext.Provider>
+        <div className="top">
+          <Switch>
+            <Route
+              path="/"
+              component={() => (
+                <Home healthInstance={this.state.healthInstance} />
+              )}
+              exact
+            />
+            <Route
+              path="/login"
+              component={() => (
+                <LoginContainer healthInstance={this.state.healthInstance} />
+              )}
+              exact
+            />
+            <Route
+              path="/doctor"
+              component={() => (
+                <DoctorContainer healthInstance={this.state.healthInstance} />
+              )}
+              exact
+            />
+            <Route
+              path="/orga"
+              component={() => (
+                <OrgaView healthInstance={this.state.healthInstance} />
+              )}
+              exact
+            />
+            <Route
+              path="/orgasearch"
+              component={() => (
+                <OrgaSeachFormContainer
+                  healthInstance={this.state.healthInstance}
+                />
+              )}
+              exact
+            />
+            <Route
+              path="/orgadata"
+              component={() => (
+                <DataViewContainer healthInstance={this.state.healthInstance} />
+              )}
+              exact
+            />
+          </Switch>
+        </div>
       </BrowserRouter>
     );
   }

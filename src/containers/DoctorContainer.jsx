@@ -8,13 +8,25 @@ export default class DoctorContainer extends React.Component {
     super();
     this.state = {
       search: "",
-      name: ""
+      name: "",
+      showPatient: false
     };
+    this.togglePatientOverlay = this.togglePatientOverlay.bind(this);
+  }
+
+  togglePatientOverlay() {
+    this.setState({
+      showPatient: !this.state.showPatient
+    });
   }
 
   render() {
     return (
-      <DoctorView name={this.state.name} />
+      <DoctorView
+        name={this.state.name}
+        showPatient={this.state.showPatient}
+        togglePatientOverlay={this.togglePatientOverlay}
+      />
       // <AppConsumer>
       //   {context => {
       //     if (context && !this.state.name) {
