@@ -24,7 +24,7 @@ export default class Home extends React.Component {
             <img src="../../img/doctor.svg" />
             Doctor Login
           </button>
-          <button onClick={clickedInstitute}>
+          <button className="home-button" onClick={clickedInstitute}>
             <img src="../../img/institute.svg" width="100%" />
             Organization Search
           </button>
