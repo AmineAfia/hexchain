@@ -9,7 +9,13 @@ button {
   width: 40%;
   height: 90%;
   margin: 5%;
-  background: #eee;
-  box-sizing: border-box;
-  border-radius: 10px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 40px;
+  border: none;
+}
+
+button:hover {
+  background-color: rgb(231, 119, 114);
+  color: white;
 }

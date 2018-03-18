@@ -20,16 +20,13 @@ export default class Home extends React.Component {
     if (this.state.redirect == false) {
       return (
         <div style={{ height: "100%", width: "100%" }}>
-          <font size="12" style={{ width: "100%" }}>
-            I am...
-          </font>
           <button onClick={clickedDoctor}>
             <img src="../../img/doctor.svg" />
-            Doctor
+            Doctor Login
           </button>
           <button onClick={clickedInstitute}>
             <img src="../../img/institute.svg" width="100%" />
-            Institute
+            Organization Login
           </button>
         </div>
       );
