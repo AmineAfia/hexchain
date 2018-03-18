@@ -68,6 +68,8 @@ class App extends React.Component {
     });
   }
 
+  
+
   watchEvents() {
     // TODO: trigger event when vote is counted, not when component renders
     this.electionInstance
