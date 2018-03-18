@@ -19,6 +19,7 @@ export default class DataViewContainer extends React.Component {
 				setActivePrice={this.setActivePrice}
 				activePrice={this.state.activePrice}
 				prices={[2.3, 4, 7.5]}
+				recordCount={this.props.recordsCount}
 			/>
 		);
 	}

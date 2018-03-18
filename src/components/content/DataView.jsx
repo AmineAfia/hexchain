@@ -28,7 +28,7 @@ export default class DataView extends React.PureComponent {
 				<div className="dataView-header"> Organization </div>
 				<div className="dataView-container">
 					<Card
-						title={this.props.term + " Data"}
+						title={"Data"}
 						actions={[
 							<span>
 								Purchase{" "}
@@ -37,7 +37,7 @@ export default class DataView extends React.PureComponent {
 						]}
 					>
 						<Card.Grid style={gridHeaderStyle}>
-							{this.props.number} Records Available
+							{this.props.recordCount} Records Available
 						</Card.Grid>
 						<Card.Grid
 							onClick={() => setActivePrice(0)}
