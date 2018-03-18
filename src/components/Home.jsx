@@ -23,11 +23,11 @@ export default class Home extends React.Component {
           <font size="12" style={{ width: "100%" }}>
             I am...
           </font>
-          <button onClick={clickedDoctor}>
+          <button className="home-button" onClick={clickedDoctor}>
             <img src="../../img/doctor.svg" />
             Doctor
           </button>
-          <button onClick={clickedInstitute}>
+          <button className="home-button" onClick={clickedInstitute}>
             <img src="../../img/institute.svg" width="100%" />
             Institute
           </button>
