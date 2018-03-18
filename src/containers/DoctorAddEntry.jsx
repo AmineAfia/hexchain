@@ -30,14 +30,16 @@ class RegistrationForm extends React.Component {
       age: -1,
       nationality: "",
       city: "",
-      country: "Netherlands",
+      country: "UK",
       diseases: "",
       symptoms: [],
+      symptom: "",
       agreement: false
     };
     this.inputOnChange = this.inputOnChange.bind(this);
     this.addSymptom = this.addSymptom.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.diseasesOnChange = this.diseasesOnChange.bind(this);
   }
 
   inputOnChange(event) {
@@ -50,12 +52,15 @@ class RegistrationForm extends React.Component {
     });
   }
 
-  addSymptom(event) {
-    this.props.togglePatientOverlay();
-    console.log(this.props);
-    const { target } = event;
-    const value = target.value;
+  diseasesOnChange(value, obj) {
+    if (value) {
+      this.setState({
+        diseases: value[value.length - 1]
+      });
+    }
+  }
 
+  addSymptom(value) {
     if (value) {
       let retval = this.state.symptoms;
       retval.push(value);
@@ -95,7 +100,6 @@ class RegistrationForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
 
-    console.log(this.props);
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -197,7 +201,7 @@ class RegistrationForm extends React.Component {
           <div className="disease">
             <FormItem {...formItemLayout} label="Disease">
               {getFieldDecorator("residence", {
-                initialValue: ["infectious", "flue"],
+                initialValue: ["Infectious", "Flue"],
                 rules: [
                   {
                     type: "array",
@@ -205,7 +209,9 @@ class RegistrationForm extends React.Component {
                     message: "Please select the patients diseas!"
                   }
                 ]
-              })(<Cascader options={diseases} />)}
+              })(
+                <Cascader options={diseases} onChange={this.diseasesOnChange} />
+              )}
             </FormItem>
             <div
               className="disease-symp"
@@ -215,18 +221,26 @@ class RegistrationForm extends React.Component {
                 marginLeft: "11%"
               }}
             >
-              <FormItem {...formItemLayout} label="Symptom">
-                {getFieldDecorator("symptom", {
-                  rules: [
-                    {
-                      required: true,
-                      message: "Add Symptom!",
-                      placeholder: "Symptom",
-                      whitespace: true
-                    }
-                  ]
-                })(<Input onPressEnter={this.addSymptom} />)}
-              </FormItem>
+              <div className="doctor-symptom">
+                <FormItem {...formItemLayout} label="Symptom">
+                  {getFieldDecorator("symptom", {
+                    rules: [
+                      {
+                        required: true,
+                        message: "Add Symptom!",
+                        placeholder: "Symptom",
+                        whitespace: true
+                      }
+                    ]
+                  })(<Input onChange={this.inputOnChange} />)}
+                </FormItem>
+                <Button
+                  style={{ width: "50px" }}
+                  onClick={() => this.addSymptom(this.state.symptom)}
+                >
+                  Add
+                </Button>
+              </div>
               <List
                 bordered
                 size="small"
@@ -252,7 +266,7 @@ class RegistrationForm extends React.Component {
               disabled={!this.state.agreement}
               type="primary"
               htmlType="submit"
-              onClick={this.addSymptom}
+              onClick={() => this.props.togglePatientOverlay()}
             >
               Register
             </Button>

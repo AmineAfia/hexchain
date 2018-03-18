@@ -17,6 +17,10 @@
     display: flex;
     justify-content: space-around;
   }
+  &-symptom {
+    display: grid;
+    grid-auto-flow: column;
+  }
 }
 
 .search {
