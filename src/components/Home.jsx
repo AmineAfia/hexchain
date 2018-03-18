@@ -20,7 +20,7 @@ export default class Home extends React.Component {
     if (this.state.redirect == false) {
       return (
         <div style={{ height: "100%", width: "100%" }}>
-          <button onClick={clickedDoctor}>
+          <button className="home-button" onClick={clickedDoctor}>
             <img src="../../img/doctor.svg" />
             Doctor Login
           </button>
