@@ -13,9 +13,7 @@ const LoginView = props => {
   const { getFieldDecorator } = props.form;
   return (
     <div style={{ height: "100%" }}>
-      <div className="icon-small">
-        <AnimatedIcon />
-      </div>
+      <div className="icon-small" />
       <div className="login">
         <div className="login-container">
           <h2>Login</h2>
