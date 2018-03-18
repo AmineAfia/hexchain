@@ -186,6 +186,11 @@ contract Health {
         return numberOfSelectedPatients;
     }
 
+    function getPatientBalanceByName(string _name) public returns(uint) {
+        uint tmpId = getPatientIdByName(_name);
+        return patients[tmpId].balance;
+    }
+
     function buyData(uint _id, uint price) public payable {
         patients[_id].balance += price;
     }

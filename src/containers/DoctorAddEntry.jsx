@@ -78,6 +78,16 @@ class RegistrationForm extends React.Component {
       )
       .then(result => {
         console.log(result);
+        this.props.healthInstance
+          .addDiseaseToPatient(
+            this.state.name,
+            this.state.diseases,
+            this.state.symptoms.join("  "),
+            "Philip"
+          )
+          .then(result => {
+            console.log("Added disease: ", this.state.diseases, result);
+          });
       });
   }
 
