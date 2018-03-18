@@ -85,72 +85,70 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <AppContext.Provider value={this.state.healthInstance}>
-          <div className="top">
-            <Switch>
-              <Route
-                path="/"
-                component={() => (
-                  <Home
-                    healthInstance={this.state.healthInstance}
-                    account={this.state.account}
-                  />
-                )}
-                exact
-              />
-              <Route
-                path="/login"
-                component={() => (
-                  <LoginContainer
-                    healthInstance={this.state.healthInstance}
-                    account={this.state.account}
-                  />
-                )}
-                exact
-              />
-              <Route
-                path="/doctor"
-                component={() => (
-                  <DoctorContainer
-                    healthInstance={this.state.healthInstance}
-                    account={this.state.account}
-                  />
-                )}
-                exact
-              />
-              <Route
-                path="/orga"
-                component={() => (
-                  <OrgaView
-                    healthInstance={this.state.healthInstance}
-                    account={this.state.account}
-                  />
-                )}
-                exact
-              />
-              <Route
-                path="/orgasearch"
-                component={() => (
-                  <OrgaSeachFormContainer
-                    healthInstance={this.state.healthInstance}
-                    account={this.state.account}
-                  />
-                )}
-                exact
-              />
-              <Route
-                path="/orgadata"
-                component={() => (
-                  <DataViewContainer
-                    healthInstance={this.state.healthInstance}
-                    account={this.state.account}
-                  />
-                )}
-                exact
-              />
-            </Switch>
-          </div>
-        </AppContext.Provider>
+        <div className="top">
+          <Switch>
+            <Route
+              path="/"
+              component={() => (
+                <Home
+                  healthInstance={this.state.healthInstance}
+                  account={this.state.account}
+                />
+              )}
+              exact
+            />
+            <Route
+              path="/login"
+              component={() => (
+                <LoginContainer
+                  healthInstance={this.state.healthInstance}
+                  account={this.state.account}
+                />
+              )}
+              exact
+            />
+            <Route
+              path="/doctor"
+              component={() => (
+                <DoctorContainer
+                  healthInstance={this.state.healthInstance}
+                  account={this.state.account}
+                />
+              )}
+              exact
+            />
+            <Route
+              path="/orga"
+              component={() => (
+                <OrgaView
+                  healthInstance={this.state.healthInstance}
+                  account={this.state.account}
+                />
+              )}
+              exact
+            />
+            <Route
+              path="/orgasearch"
+              component={() => (
+                <OrgaSeachFormContainer
+                  healthInstance={this.state.healthInstance}
+                  account={this.state.account}
+                />
+              )}
+              exact
+            />
+            <Route
+              path="/orgadata"
+              component={() => (
+                <DataViewContainer
+                  healthInstance={this.state.healthInstance}
+                  account={this.state.account}
+                />
+              )}
+              exact
+            />
+          </Switch>
+        </div>
       </BrowserRouter>
     );
   }
