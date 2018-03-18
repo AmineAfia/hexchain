@@ -186,9 +186,12 @@ contract Health {
         return numberOfSelectedPatients;
     }
 
-/*
-    function buyData() payable {
-        this.address.transfer(10);
+    function buyData(uint _id, uint price) public payable {
+        patients[_id].balance += price;
     }
-   */ 
+    
+    function getContractBalance() public returns(uint) {
+        return this.balance;
+    }
+    
 }

@@ -89,7 +89,10 @@ class App extends React.Component {
     this.state.healthInstance.getDataToBuy
       .call(countries[0], diseases[0])
       .then(result => {
-        this.setState({ records: result.filter(v => v != null) });
+        console.log(result);
+        this.setState({
+          records: result.map(v => v.toNumber()).filter(v => v != 0)
+        });
       })
       .catch(() => {
         this.setState({ records: Math.floor(Math.random() * 10) + 20 });
@@ -97,14 +100,30 @@ class App extends React.Component {
   }
   payForRecords(price) {
     console.log("Tried to pay with price", price);
+
+    this.health.defaults({
+      gas: 25000,
+      gasPrice: 4000000000
+      // value: 45500000000000000
+    });
+
+    // this.state.healthInstance
+    //   .sendTransaction({ from: this.state.account })
+    //   .then(function(result) {
+    //     // Same result object as above.
+    //     console.log(result);
+    //     console.log(
+    //       "-------->->->->",
+    //       web3.eth.getBalance(this.state.healthInstance.address)
+    //     );
+    //   });
     this.state.records.map(record => {
-      this.state.healthInstance
-        .send(web3.toWei(10, "ether"))
-        .then(function(result) {
-          // Same result object as above.
-          console.log(result);
-        });
-      // this.state.healthInstance.buyData(record, price);
+      this.healthInstance.buyData(record, 45500000000000000, {
+        from: this.state.account,
+        gas: 300000,
+        value: 45500000000000000
+      });
+      console.log("record: ", record);
     });
   }
   render() {

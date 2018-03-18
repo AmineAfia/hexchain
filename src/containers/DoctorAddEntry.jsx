@@ -74,7 +74,7 @@ class RegistrationForm extends React.Component {
         this.state.nationality,
         this.state.city,
         this.state.country,
-        { from: this.props.account }
+        { from: this.props.account, gas: 300000 }
       )
       .then(result => {
         console.log(result);
