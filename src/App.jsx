@@ -89,7 +89,10 @@ class App extends React.Component {
 		this.state.healthInstance.getDataToBuy
 			.call(countries[0], diseases[0])
 			.then(result => {
-				this.setState({ records: result.filter(v => v != null) });
+				console.log(result);
+				this.setState({
+					records: result.map(v => v.toNumber()).filter(v => v != 0)
+				});
 			})
 			.catch(() => {
 				this.setState({ records: Math.floor(Math.random() * 10) + 20 });
